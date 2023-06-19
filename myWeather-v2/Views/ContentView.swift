@@ -13,12 +13,12 @@ struct ContentView: View {
     var body: some View {
         VStack {
             if let location = model.location {
-                VStack {
-                    Text("Latitude: \(location.coordinate.latitude), Longitude: \(location.coordinate.longitude)")
-                    Text("\(model.currentLocationTemperature)")
+                VStack(alignment: .leading) {
+                    Text("Temperature: \(model.currentTemperature)")
+                    Text("Weather Condition: \(model.formatCondition)")
                 }
             } else {
-                Text("Updating location...")
+                ProgressView()
             }
         }
     }
