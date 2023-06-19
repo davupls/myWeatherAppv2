@@ -12,6 +12,7 @@
 		9336EC582A3FE12700A2144B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9336EC572A3FE12700A2144B /* Assets.xcassets */; };
 		9336EC5B2A3FE12700A2144B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9336EC5A2A3FE12700A2144B /* Preview Assets.xcassets */; };
 		9336EC6B2A40A6A500A2144B /* WeatherAndLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336EC6A2A40A6A500A2144B /* WeatherAndLocationModel.swift */; };
+		93D57BD22A40C864007310C4 /* WeatherShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D57BD12A40C864007310C4 /* WeatherShapes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		9336EC6A2A40A6A500A2144B /* WeatherAndLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAndLocationModel.swift; sourceTree = "<group>"; };
 		93D57BCF2A40B962007310C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		93D57BD02A40BA21007310C4 /* myWeather-v2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "myWeather-v2.entitlements"; sourceTree = "<group>"; };
+		93D57BD12A40C864007310C4 /* WeatherShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherShapes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				9336EC552A3FE12600A2144B /* ContentView.swift */,
+				93D57BD12A40C864007310C4 /* WeatherShapes.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 			files = (
 				9336EC562A3FE12600A2144B /* ContentView.swift in Sources */,
 				9336EC6B2A40A6A500A2144B /* WeatherAndLocationModel.swift in Sources */,
+				93D57BD22A40C864007310C4 /* WeatherShapes.swift in Sources */,
 				9336EC542A3FE12600A2144B /* myWeather_v2App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
