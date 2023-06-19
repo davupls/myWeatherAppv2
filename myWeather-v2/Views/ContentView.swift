@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var locationManager = DeviceLocationModel()
+    @StateObject var model = WeatherAndLocationModel()
     
     var body: some View {
         VStack {
-            if let location = locationManager.location {
-                Text("Latitude: \(location.coordinate.latitude), Longitude: \(location.coordinate.longitude)")
+            if let location = model.location {
+                VStack {
+                    Text("Latitude: \(location.coordinate.latitude), Longitude: \(location.coordinate.longitude)")
+                    Text("\(model.currentLocationTemperature)")
+                }
             } else {
                 Text("Updating location...")
             }

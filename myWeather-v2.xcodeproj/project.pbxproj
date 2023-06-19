@@ -11,9 +11,8 @@
 		9336EC562A3FE12600A2144B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336EC552A3FE12600A2144B /* ContentView.swift */; };
 		9336EC582A3FE12700A2144B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9336EC572A3FE12700A2144B /* Assets.xcassets */; };
 		9336EC5B2A3FE12700A2144B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9336EC5A2A3FE12700A2144B /* Preview Assets.xcassets */; };
-		9336EC652A3FE1E200A2144B /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336EC642A3FE1E200A2144B /* WeatherModel.swift */; };
-		9336EC672A3FE1FB00A2144B /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336EC662A3FE1FB00A2144B /* LocationModel.swift */; };
 		9336EC692A3FE2EC00A2144B /* Filler File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336EC682A3FE2EC00A2144B /* Filler File.swift */; };
+		9336EC6B2A40A6A500A2144B /* WeatherAndLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336EC6A2A40A6A500A2144B /* WeatherAndLocationModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,9 +21,10 @@
 		9336EC552A3FE12600A2144B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9336EC572A3FE12700A2144B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9336EC5A2A3FE12700A2144B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9336EC642A3FE1E200A2144B /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
-		9336EC662A3FE1FB00A2144B /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		9336EC682A3FE2EC00A2144B /* Filler File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Filler File.swift"; sourceTree = "<group>"; };
+		9336EC6A2A40A6A500A2144B /* WeatherAndLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAndLocationModel.swift; sourceTree = "<group>"; };
+		93D57BCF2A40B962007310C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		93D57BD02A40BA21007310C4 /* myWeather-v2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "myWeather-v2.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +57,8 @@
 		9336EC522A3FE12600A2144B /* myWeather-v2 */ = {
 			isa = PBXGroup;
 			children = (
+				93D57BD02A40BA21007310C4 /* myWeather-v2.entitlements */,
+				93D57BCF2A40B962007310C4 /* Info.plist */,
 				9336EC532A3FE12600A2144B /* myWeather_v2App.swift */,
 				9336EC632A3FE1C200A2144B /* Controller */,
 				9336EC622A3FE1BB00A2144B /* Views */,
@@ -79,8 +81,7 @@
 		9336EC612A3FE1A700A2144B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9336EC642A3FE1E200A2144B /* WeatherModel.swift */,
-				9336EC662A3FE1FB00A2144B /* LocationModel.swift */,
+				9336EC6A2A40A6A500A2144B /* WeatherAndLocationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -170,9 +171,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9336EC672A3FE1FB00A2144B /* LocationModel.swift in Sources */,
 				9336EC562A3FE12600A2144B /* ContentView.swift in Sources */,
-				9336EC652A3FE1E200A2144B /* WeatherModel.swift in Sources */,
+				9336EC6B2A40A6A500A2144B /* WeatherAndLocationModel.swift in Sources */,
 				9336EC542A3FE12600A2144B /* myWeather_v2App.swift in Sources */,
 				9336EC692A3FE2EC00A2144B /* Filler File.swift in Sources */,
 			);
@@ -300,12 +300,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "myWeather-v2/myWeather-v2.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"myWeather-v2/Preview Content\"";
 				DEVELOPMENT_TEAM = ZA8ASJR32G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "myWeather-v2/Info.plist";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This is required to find your location.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Require your location to provide weather.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -331,12 +333,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "myWeather-v2/myWeather-v2.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"myWeather-v2/Preview Content\"";
 				DEVELOPMENT_TEAM = ZA8ASJR32G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "myWeather-v2/Info.plist";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This is required to find your location.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Require your location to provide weather.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
