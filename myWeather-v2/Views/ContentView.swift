@@ -8,16 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var locationManager = DeviceLocationModel()
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            if let location = locationManager.location {
+                Text("Latitude: \(location.coordinate.latitude), Longitude: \(location.coordinate.longitude)")
+            } else {
+                Text("Updating location...")
+            }
         }
-        .padding()
     }
 }
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

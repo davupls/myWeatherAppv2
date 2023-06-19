@@ -13,7 +13,22 @@ public class WeatherModel: ObservableObject {
     @Published private(set) var deviceLocationWeatherCondition = String()
     @Published private(set) var forecastWeekDays = Array<Date>()
     @Published private(set) var weatherForecast  = Array<WeatherCondition>()
+    @Published private(set) var isLoaded = false
     
     private let weatherService = WeatherService()
+    private var deviceLocationModel: DeviceLocationModel
     
+    init(deviceLocationModel: DeviceLocationModel) {
+        self.deviceLocationModel = deviceLocationModel
+    }
+    
+    func getweather() {
+        Task {
+            do {
+                let weather = try await weatherService.weather(for: deviceLocationModel.location!)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
