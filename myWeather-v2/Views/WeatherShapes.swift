@@ -156,8 +156,6 @@ struct WindyWeatherShapes: View {
 struct Sun: Shape {
     func path(in rect: CGRect) -> Path {
         Path { path in
-            let width  = rect.width
-            let height = rect.height
             
             path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.size.width/1.65, startAngle: .degrees(170), endAngle: .degrees(180), clockwise: true)
             
