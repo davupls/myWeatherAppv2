@@ -14,6 +14,7 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
 //  ********* Location
     private let locationManager = CLLocationManager()
     @Published var location: CLLocation?
+    @Published private(set) var userDeviceLocation = String()
 //  ********* Weather
     @Published private(set) var currentTemperature = String()
     @Published private(set) var currentWeatherCondition = String()
@@ -31,6 +32,7 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()     // Required to start
+        processLocation() 
     }
 
     
@@ -119,6 +121,56 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
             }
             
         }
+    }
+    
+    // MARK: Get Device Location and Area Name
+    func getLocationName(for coordinate: CLLocationCoordinate2D, completion: @escaping (String?) -> Void) {
+        let geocoder = CLGeocoder()
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error = error {
+                print("Reverse geocoding error: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            if let placemark = placemarks?.first,
+               let locality  = placemark.locality
+            {
+                let locationName = "\(locality)"
+                completion(locationName)
+            } else {
+                print("No placemarks found.")
+                completion(nil)
+            }
+        }
+    }
+    
+    // MARK: Process Location
+    func processLocation() {
+        locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+            
+            if let userLocation = locationManager.location?.coordinate {
+                getLocationName(for: userLocation) { locationName in
+                    if let locationName = locationName {
+                        print(userLocation)
+                        print("User location name: \(locationName)")
+                        self.userDeviceLocation = locationName
+                    } else {
+                        print("Failed to retireve location name.")
+                    }
+                }
+            } else {
+                print("Failed to retrieve user location.")
+            }
+        } else {
+            print("Location services not authorized.")
+        }
+        
     }
     
     

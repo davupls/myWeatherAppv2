@@ -32,7 +32,7 @@ struct ContentView: View {
                                         .padding(.trailing, 2)
                                     
                                     VStack(alignment: .leading) {
-                                        Text("\("Chicago")")
+                                        Text("\(model.userDeviceLocation)")
                                             .font(.custom("RalewayRoman-Regular", size: 25))
                                         Text("Just updated")
                                             .font(.custom("RalewayRoman-Regular", size: 12))
@@ -48,7 +48,7 @@ struct ContentView: View {
                             Text("\(model.currentTemperature)")
                                 .font(.custom("RalewayRoman-Light", size: 90))
                         }
-                        .padding(.horizontal)
+                        .padding([.horizontal, .bottom])
                     }
                     
 //                    MARK: Forecasts
@@ -77,7 +77,7 @@ struct ContentView: View {
                                                 .scaledToFit()
                                                 .frame(width: 60, height: 60)
                                             Text("\(forecastConditionName(weatherCondition: condition))")
-                                                .frame(width: 70, height: 10)
+                                                .frame(width: 70, height: 30)
                                                 .font(.caption)
                                         }
                                     }
@@ -93,7 +93,17 @@ struct ContentView: View {
                 
                 
             } else {
-                ProgressView()
+                VStack {
+                    Image("WeatherImage")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200, height: 200)
+                    HStack {
+                        Text("Loading...")
+                        ProgressView()
+                    }
+                }
+                .padding()
             }
         }
         .onReceive(model.$isLoaded) { isLoaded in
