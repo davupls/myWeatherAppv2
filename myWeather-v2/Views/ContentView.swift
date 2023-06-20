@@ -21,7 +21,7 @@ struct ContentView: View {
                     GeometryReader { geo in
                         VStack(alignment: .leading) {
                             ZStack {
-                                SunnyWeatherShapes()
+                                WeatherShapeView()
                                     .frame(width: geo.size.width, height: geo.size.width)
                                     .offset(x: -20, y: -80)
                                 HStack {
@@ -85,6 +85,27 @@ struct ContentView: View {
             viewBackgroundColor = "soft-white"
             print("Error with Weather Condition, check themeCondition variable.")
         }
+    }
+    
+    func WeatherShapeView() -> some View {
+        /*  This needs to be in a group to let
+         SwiftUI know these Views are of the same type.
+         */
+        
+        Group {
+            if model.themedCondition == "Sunny" {
+                SunnyWeatherShapes()
+            } else if model.themedCondition == "Cloudy"{
+                CloudyWeatherShapes()
+            } else if model.themedCondition == "Windy"{
+                CloudyWeatherShapes()
+            } else if model.themedCondition == "Rainy"{
+                RainyWeatherShapes()
+            } else {
+                WindyWeatherShapes()
+            }
+        }
+        
     }
 }
 
