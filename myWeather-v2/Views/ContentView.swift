@@ -11,8 +11,9 @@ struct ContentView: View {
     @StateObject var model = WeatherAndLocationModel()
     @State var viewBackgroundColor = String()
     @State var fontColor = Color.black
+    @State var iconName = String()
     
-    //   [✓] Background Color, [✓] Font Color, Shape, Icon Color
+    //   [✓] Background Color, [✓] Font Color, [✓] Shape, Icon Color
     
     var body: some View {
         VStack {
@@ -45,6 +46,10 @@ struct ContentView: View {
                                 .font(.custom("RalewayRoman-Bold", size: 38))
                             Text("\(model.currentTemperature)")
                                 .font(.custom("RalewayRoman-Light", size: 70))
+                            Image("\(iconName)")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(fontColor)
                         }
                         .padding(.horizontal)
                     }
@@ -67,23 +72,29 @@ struct ContentView: View {
         if model.themedCondition == "Cloudy" {
             viewBackgroundColor = "soft-blue"
             viewBackgroundColor = "soft-yellow"
+            iconName = "CloudyIcon"
             
             
         } else if model.themedCondition == "Sunny" {
             viewBackgroundColor = "soft-red"
             fontColor = Color("soft-white")
+            iconName = "SunnyIcon"
             
         } else if model.themedCondition == "Windy" {
             viewBackgroundColor = "soft-yellow"
             fontColor = Color(.black)
+            iconName = "WindyIcon"
             
         } else if model.themedCondition == "Rainy" {
             viewBackgroundColor = "soft-white"
             fontColor = Color(.black)
+            iconName = "RainyIcon"
             
         } else {
             viewBackgroundColor = "soft-white"
+            iconName = "CloudyIcon"
             print("Error with Weather Condition, check themeCondition variable.")
+            
         }
     }
     
