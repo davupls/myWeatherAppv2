@@ -9,13 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var model = WeatherAndLocationModel()
-    @State var backgroundColor = String()
+    @State var viewBackgroundColor = String()
+    @State var fontColor = Color.black
     
-    //    Background Color, Font Color, Shape, Icon Color
+    //   [✓] Background Color, [✓] Font Color, Shape, Icon Color
     
     var body: some View {
         VStack {
-            if let location = model.location {
+            if model.isLoaded == true {
                 VStack {
                     GeometryReader { geo in
                         VStack(alignment: .leading) {
@@ -34,10 +35,10 @@ struct ContentView: View {
                                         Text("Just updated")
                                             .font(.custom("RalewayRoman-Regular", size: 12))
                                     }
-                                    .padding(.top, 180)
                                     
                                     Spacer()
                                 }
+                                .padding(.top, 180)
                             }
                             
                             Text("\(model.themedCondition)")
@@ -48,15 +49,41 @@ struct ContentView: View {
                         .padding(.horizontal)
                     }
                 }
+                .background(Color("\(viewBackgroundColor)"))
+                .foregroundColor(fontColor)
+                
             } else {
                 ProgressView()
+            }
+        }
+        .onReceive(model.$isLoaded) { isLoaded in
+            if isLoaded {
+                colors()
             }
         }
     }
     
     func colors() {
         if model.themedCondition == "Cloudy" {
-            backgroundColor = "soft-blue"
+            viewBackgroundColor = "soft-blue"
+            viewBackgroundColor = "soft-yellow"
+            
+            
+        } else if model.themedCondition == "Sunny" {
+            viewBackgroundColor = "soft-red"
+            fontColor = Color("soft-white")
+            
+        } else if model.themedCondition == "Windy" {
+            viewBackgroundColor = "soft-yellow"
+            fontColor = Color(.black)
+            
+        } else if model.themedCondition == "Rainy" {
+            viewBackgroundColor = "soft-white"
+            fontColor = Color(.black)
+            
+        } else {
+            viewBackgroundColor = "soft-white"
+            print("Error with Weather Condition, check themeCondition variable.")
         }
     }
 }

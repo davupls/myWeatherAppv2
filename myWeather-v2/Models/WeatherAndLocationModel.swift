@@ -30,7 +30,7 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()     // Required to start 
+        locationManager.startUpdatingLocation()     // Required to start
     }
 
     
@@ -40,6 +40,7 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
         location = locations.last
         locationManager.stopUpdatingLocation()      // Required to stop
         getWeatherData()
+        
     }
 //    In Case Device Coordinates fail
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -61,25 +62,32 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
                         
                     case "clear", "mostlyClear", "hot":
                         themedCondition = "Sunny"
+                        isLoaded = true
                         
                     case "cloudy", "mostlyCloudy", "partlyCloudy", "blowingDust", "foggy", "haze", "smoky":
                         themedCondition = "Cloudy"
+                        isLoaded = true
                         
                     case "Windy", "Breezy":
                         themedCondition = "Windy"
+                        isLoaded = true
                         
                     case "Drizzle", "HeavyRain", "Thunderstorm", "Rain", "SunShowers", "Scattered Thunderstorms", "strongStorms", "thunderstorms", "hurricane", "tropicalStorm", "hail":
                         themedCondition = "Rainy"
+                        isLoaded = true
                     
                     default:
                         print("\n\nError with Switch Statement: Check Model\n \(currentWeatherCondition)\n")
                         themedCondition = "sunny"
+                        isLoaded = true
                     }
                 }
             } catch {
                 print("\nRetrieving Weather failed: \n \(error.localizedDescription)\n\n")
             }
         }
+        
+        
     }
     
     
