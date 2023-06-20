@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WeatherKit
 
 struct ContentView: View {
     @StateObject var model = WeatherAndLocationModel()
@@ -13,7 +14,7 @@ struct ContentView: View {
     @State var fontColor = Color.black
     @State var iconName = String()
     
-    //   [✓] Background Color, [✓] Font Color, [✓] Shape, Icon Color
+    //   [✓] Background Color, [✓] Font Color, [✓] Shape, [✓] Icon Color
     
     var body: some View {
         VStack {
@@ -46,32 +47,47 @@ struct ContentView: View {
                                 .font(.custom("RalewayRoman-Bold", size: 38))
                             Text("\(model.currentTemperature)")
                                 .font(.custom("RalewayRoman-Light", size: 70))
-                            Image("\(iconName)")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundColor(fontColor)
                         }
                         .padding(.horizontal)
                     }
-                }
-                .background(Color("\(viewBackgroundColor)"))
-                .foregroundColor(fontColor)
-                
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        VStack {
-                            HStack {
-                                ForEach(model.forecastWeekDays, id: \.self) { date in
-                                    VStack {
-                                        Text("\(convertDateToDayAbbr(inputDate: date))")
-                                        Text("\(convertDateToMonth_Day(inputDate: date))")
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    ForEach(model.forecastWeekDays, id: \.self) { date in
+                                        VStack {
+                                            Text("\(convertDateToDayAbbr(inputDate: date))")
+                                                .frame(width: 100, height: 10)
+                                            Text("\(convertDateToMonth_Day(inputDate: date))")
+                                                .frame(width: 100, height: 10)
+                                        }
+                                        .font(.caption)
+                                        
+                                    }
+                                }
+                                HStack {
+                                    ForEach(model.weatherForecast, id: \.self) { condition in
+                                        VStack {
+                                            Text("\(condition.rawValue)")
+                                                .frame(width: 100, height: 10)
+                                                .font(.caption)
+                                            Image("\(checkForecastConditions(weatherCondition: condition))")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 40, height: 40)
+                                        }
                                     }
                                     .font(.caption)
+                                    
                                 }
                             }
                         }
                     }
                 }
+                .background(Color("\(viewBackgroundColor)"))
+                .foregroundColor(fontColor)
+                
                 
             } else {
                 ProgressView()
@@ -152,8 +168,30 @@ struct ContentView: View {
          
          return date
      }
+    
+    func checkForecastConditions(weatherCondition: WeatherCondition) -> String {
+        var weatherIconName = ""
+        
+        switch weatherCondition.rawValue {
+        case "cloudy", "mostlyCloudy", "partlyCloudy", "blowingDust", "foggy", "haze", "smoky":
+            weatherIconName = "CloudyIcon"
+        case "windy", "breezy":
+            weatherIconName = "WindyIcon"
+        case "drizzle", "heavyRain", "isolatedThunderstorms", "rain", "sunShowers", "scattered Thunderstorms", "strongStorms", "thunderstorms", "hurricane", "tropicalStorm", "hail":
+            weatherIconName = "RainyIcon"
+        case "clear", "mostlyClear", "hot":
+            weatherIconName = "SunnyIcon"
+        default:
+            weatherIconName = "SunnyIcon"
+        }
+        
+        return weatherIconName
+    }
+    
                                              
 }
+
+
 
 
 
