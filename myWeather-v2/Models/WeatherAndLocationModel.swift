@@ -58,6 +58,11 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
                     self.currentTemperature         = weather.currentWeather.temperature.formatted()
                     self.currentWeatherCondition    = weather.currentWeather.condition.rawValue
                     
+//                   MARK: Forecast Data
+                    let forecast: Forecast<DayWeather> = weather.dailyForecast
+                    self.forecastWeekDays       = Array(forecast.map { $0.date })
+                    self.weatherForecast        = Array(forecast.map { $0.condition })
+                    
                     switch currentWeatherCondition {
                         
                     case "clear", "mostlyClear", "hot":

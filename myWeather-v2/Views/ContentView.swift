@@ -57,6 +57,22 @@ struct ContentView: View {
                 .background(Color("\(viewBackgroundColor)"))
                 .foregroundColor(fontColor)
                 
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        VStack {
+                            HStack {
+                                ForEach(model.forecastWeekDays, id: \.self) { date in
+                                    VStack {
+                                        Text("\(convertDateToDayAbbr(inputDate: date))")
+                                        Text("\(convertDateToMonth_Day(inputDate: date))")
+                                    }
+                                    .font(.caption)
+                                }
+                            }
+                        }
+                    }
+                }
+                
             } else {
                 ProgressView()
             }
@@ -118,6 +134,25 @@ struct ContentView: View {
         }
         
     }
+    
+    func convertDateToDayAbbr(inputDate: Date) -> String {
+        
+        // Create a DateFormatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE"
+        let dayOfWeek = dateFormatter.string(from: inputDate)
+        
+        return dayOfWeek
+    }
+                                             
+     func convertDateToMonth_Day(inputDate: Date) -> String {
+         let dateFormatter = DateFormatter()
+         dateFormatter.dateFormat = "MM-dd"
+         let date = dateFormatter.string(from: inputDate)
+         
+         return date
+     }
+                                             
 }
 
 
