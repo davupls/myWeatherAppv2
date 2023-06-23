@@ -310,7 +310,7 @@
 				INFOPLIST_FILE = "myWeather-v2/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Pretti Weather";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be used to deteremine the weather condition and forecast in your area.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be used to determine the weather condition and forecast in your area.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -348,7 +348,7 @@
 				INFOPLIST_FILE = "myWeather-v2/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Pretti Weather";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be used to deteremine the weather condition and forecast in your area.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be used to determine the weather condition and forecast in your area.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
