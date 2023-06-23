@@ -10,12 +10,12 @@ import WeatherKit
 import CoreLocation
 
 public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationManagerDelegate {
-
-//  ********* Location
+    
+    //  ********* Location
     private let locationManager = CLLocationManager()
     @Published var location: CLLocation?
     @Published private(set) var userDeviceLocation = String()
-//  ********* Weather
+    //  ********* Weather
     @Published private(set) var currentTemperature = String()
     @Published private(set) var currentWeatherCondition = String()
     @Published private(set) var forecastWeekDays    = Array<Date>()
@@ -29,28 +29,37 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
         super.init()
         
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()     // Required to start
-        processLocation() 
-    }
+        locationManager.desiredAccuracy = kCLLocationAccuracyReduced
 
+    }
     
-    
-//    Fetches Device Coordinates
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = locations.last
-        locationManager.stopUpdatingLocation()      // Required to stop
-        getWeatherData()
+    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        
+        switch manager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.requestLocation()
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        default:
+            break
+        }
         
     }
-//    In Case Device Coordinates fail
+    
+    //    Fetches Device Coordinates
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        location = locations.last
+        processLocation()
+        getWeatherData()
+    }
+    
+    //    In Case Device Coordinates fail
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
     }
     
     
-//    Get Weather Data from WeatherKit
+    //    Get Weather Data from WeatherKit
     func getWeatherData() {
         Task {
             do {
@@ -82,13 +91,14 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
                     case "Drizzle", "HeavyRain", "Thunderstorm", "Rain", "SunShowers", "Scattered Thunderstorms", "strongStorms", "thunderstorms", "hurricane", "tropicalStorm", "hail":
                         themedCondition = "Rainy"
                         isLoaded = true
-                    
+                        
                     default:
                         print("\n\nError with Switch Statement: Check Model\n \(currentWeatherCondition)\n")
                         themedCondition = "sunny"
                         isLoaded = true
                     }
                 }
+                
             } catch {
                 print("\nRetrieving Weather failed: \n \(error.localizedDescription)\n\n")
             }
@@ -96,7 +106,6 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
         
         
     }
-    
     
     
     var formatCondition : String {
@@ -114,7 +123,7 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
                 
             case "Drizzle", "HeavyRain", "Thunderstorm", "Rain", "SunShowers", "Scattered Thunderstorms", "strongStorms", "thunderstorms", "hurricane", "tropicalStorm", "hail":
                 return "Rainy"
-            
+                
             default:
                 print("\n\nError with Switch Statement: Check Model\n \(currentWeatherCondition)\n")
                 return "sunny"
@@ -149,26 +158,19 @@ public class WeatherAndLocationModel: NSObject, ObservableObject, CLLocationMana
     
     // MARK: Process Location
     func processLocation() {
-        locationManager.requestWhenInUseAuthorization()
         
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-            
-            if let userLocation = locationManager.location?.coordinate {
-                getLocationName(for: userLocation) { locationName in
-                    if let locationName = locationName {
-                        print(userLocation)
-                        print("User location name: \(locationName)")
-                        self.userDeviceLocation = locationName
-                    } else {
-                        print("Failed to retireve location name.")
-                    }
+        if let userLocation = locationManager.location?.coordinate {
+            getLocationName(for: userLocation) { locationName in
+                if let locationName = locationName {
+                    print(userLocation)
+                    print("User location name: \(locationName)")
+                    self.userDeviceLocation = locationName
+                } else {
+                    print("Failed to retireve location name.")
                 }
-            } else {
-                print("Failed to retrieve user location.")
             }
         } else {
-            print("Location services not authorized.")
+            print("Failed to retrieve user location.")
         }
         
     }
